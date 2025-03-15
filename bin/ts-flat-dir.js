@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { resolve, basename } from 'node:path';
-import { access, mkdir, copyFile } from 'node:fs/promises';
+import { access, mkdir, copyFile, writeFile } from 'node:fs/promises';
 import FastGlob from 'fast-glob';
 import { flat } from '../build/index.js';
 
@@ -37,7 +37,8 @@ await Promise.all(
       if (outputFilename.endsWith('.d.ts')) {
         await copyFile(file, outputFilename);
       } else {
-        await flat(file, outputFilename);
+        const output = await flat(file);
+        await writeFile(outputFilename, output);
       }
     })
 ).catch(e => {

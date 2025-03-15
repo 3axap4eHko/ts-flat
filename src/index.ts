@@ -1,9 +1,9 @@
 import { resolve, dirname } from 'node:path';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { parse, print } from '@swc/core';
 import type { Program } from '@swc/core';
 
-export const flat = async (entryPoint: string, outputFile: string) => {
+export const flat = async (entryPoint: string) => {
   const astMap = new Map<string, Program>();
   const processQueue: string[] = [entryPoint];
   const priority = new Set<string>(processQueue);
@@ -55,5 +55,5 @@ export const flat = async (entryPoint: string, outputFile: string) => {
     scripts.unshift(code);
   }
 
-  await writeFile(outputFile, scripts.join('\n').replace(/\n;/g, ''));
+  return scripts.join('\n').replace(/\n;/g, '');
 }
