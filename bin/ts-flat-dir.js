@@ -7,7 +7,7 @@ import { flat } from '../build/index.js';
 const { glob } = FastGlob;
 
 const patterns = process.argv.slice(2, -1);
-if (!patterns.every(pattern => typeof pattern === 'string')) {
+if (patterns.some(pattern => typeof pattern !== 'string')) {
   console.error(`Glob patterns are not provided`);
   process.exit(1);
 }
