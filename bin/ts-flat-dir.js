@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 import { resolve, basename } from 'node:path';
 import { access, mkdir } from 'node:fs/promises';
-import { glob } from 'fast-glob';
+import FastGlob from 'fast-glob';
 import { flat } from '../build/index.js';
+
+const { glob } = FastGlob;
 
 const globPattern = process.argv[2];
 if (typeof globPattern !== 'string') {
