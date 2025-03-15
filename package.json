@@ -5,7 +5,8 @@
   "main": "build/index.js",
   "type": "module",
   "bin": {
-    "inop": "bin/index.js"
+    "ts-flat": "bin/ts-flat.js",
+    "ts-flat-dir": "bin/ts-flat-dir.js"
   },
   "scripts": {
     "build": "rm -rf build && swc ./src --out-dir build/ --strip-leading-paths"
@@ -23,7 +24,8 @@
     "url": "https://linkedin.com/in/3axap4eHko"
   },
   "dependencies": {
-    "@swc/core": "^1.11.9"
+    "@swc/core": "^1.11.9",
+    "fast-glob": "^3.3.3"
   },
   "devDependencies": {
     "@swc/cli": "^0.6.0",
