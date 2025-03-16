@@ -32,15 +32,7 @@ export const flat = async (entryPoint: string) => {
             }
           } satisfies Statement;
         } else if (node.type === 'ExportDeclaration') {
-          switch (node.declaration?.type) {
-            case 'VariableDeclaration':
-            case 'ClassDeclaration':
-            case 'FunctionDeclaration':
-              ast.body[index] = node.declaration;
-              break;
-            default:
-              console.error('Not supported declaration', node);
-          }
+          ast.body[index] = node.declaration;
         }
       }
     }
