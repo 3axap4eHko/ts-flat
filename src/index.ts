@@ -1,7 +1,7 @@
 import { resolve, dirname } from 'node:path';
 import { readFile } from 'node:fs/promises';
 import { parse, print } from '@swc/core';
-import type { Program } from '@swc/core';
+import type { Program, Statement } from '@swc/core';
 
 export const flat = async (entryPoint: string) => {
   const astMap = new Map<string, Program>();
@@ -30,7 +30,7 @@ export const flat = async (entryPoint: string) => {
               end: 0,
               ctxt: 0,
             }
-          }
+          } satisfies Statement;
         } else if (node.type === 'ExportDeclaration') {
           switch (node.declaration?.type) {
             case 'VariableDeclaration':
@@ -39,7 +39,7 @@ export const flat = async (entryPoint: string) => {
               ast.body[index] = node.declaration;
               break;
             default:
-              console.log(node);
+              console.error('Not supported declaration', node);
           }
         }
       }
@@ -49,7 +49,6 @@ export const flat = async (entryPoint: string) => {
   const scripts: string[] = [];
 
   for (const filename of priority) {
-    console.log(filename);
     const ast = astMap.get(filename)!;
     const { code } = await print(ast);
     scripts.unshift(code);
