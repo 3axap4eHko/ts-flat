@@ -17,7 +17,7 @@ export const flat = async (entryPoint: string) => {
       for (const [index, node] of ast.body.entries()) {
         if (node.type === 'ImportDeclaration') {
           const directory = dirname(filename);
-          const importFilename = resolve(directory, node.source.value) + '.ts';
+          const importFilename = resolve(directory, node.source.value).replace(/.[jt]sx$/, '') + '.ts';
           if (!astMap.has(importFilename)) {
             processQueue.push(importFilename);
           }

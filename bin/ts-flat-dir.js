@@ -23,7 +23,7 @@ const outputDir = (() => {
 
 await mkdir(outputDir, { recursive: true });
 
-const files = await Promise.all(patterns.map(pattern => glob(pattern, { absolute: true, dot: true })));
+const files = await Promise.all(patterns.map(pattern => glob(pattern, { absolute: true })));
 const uniqueFiles = [...new Set(files.flat())];
 
 await Promise.all(
