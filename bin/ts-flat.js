@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { resolve } from 'node:path';
+import { writeFile } from 'node:fs/promises';
 import { flat } from '../build/index.js';
 
 const entryPoint = resolve(process.argv[2]);
